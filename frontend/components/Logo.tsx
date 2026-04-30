@@ -1,11 +1,11 @@
 /**
- * GenLayer Logo Component
- * Per Brand Guidelines 2025
+ * RepoScore Logo Component
+ * Adapted from GenLayer Brand Guidelines 2025
  *
  * Variants:
- * - "full": Strong Mark + Wordmark (for desktop/larger spaces)
- * - "mark": Strong Mark only (for mobile/compact spaces)
- * - "wordmark": Wordmark only (for specific cases)
+ * - "full": GenLayer Mark + RepoScore Wordmark
+ * - "mark": GenLayer Mark only
+ * - "wordmark": RepoScore Wordmark only
  */
 
 import React from 'react';
@@ -36,13 +36,13 @@ export function Logo({
   const colorClass = theme === 'dark' ? 'text-foreground' : 'text-background';
   const { mark: markSize, text: textSize } = sizeMap[size];
 
-  // GenLayer Strong Mark (Triangle/Hands symbol)
+  // GenLayer Strong Mark (Triangle/Hands symbol representing consensus)
   const StrongMark = () => (
     <svg
       className={`${markSize} ${colorClass} transition-colors`}
       viewBox="0 0 97.76 91.93"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="GenLayer Logo"
+      aria-label="RepoScore Logo"
     >
       <path
         fill="currentColor"
@@ -51,13 +51,13 @@ export function Logo({
     </svg>
   );
 
-  // Wordmark (using Space Grotesk from layout)
+  // RepoScore Wordmark (using Space Grotesk for technical aesthetic)
   const Wordmark = () => (
     <span
-      className={`${textSize} font-bold ${colorClass} font-[family-name:var(--font-display)] transition-colors`}
-      style={{ letterSpacing: '-0.02em' }}
+      className={`${textSize} font-bold ${colorClass} font-[family-name:var(--font-display)] transition-colors tracking-tight`}
+      style={{ letterSpacing: '-0.03em' }}
     >
-      GenLayer
+      RepoScore
     </span>
   );
 
@@ -77,7 +77,7 @@ export function Logo({
     );
   }
 
-  // Full logo (default): Strong Mark + Wordmark
+  // Full logo: GenLayer Mark + RepoScore text
   return (
     <div className={`inline-flex items-center gap-2 ${className}`}>
       <StrongMark />
@@ -86,7 +86,6 @@ export function Logo({
   );
 }
 
-// Convenience components for common use cases
 export function LogoFull(props: Omit<LogoProps, 'variant'>) {
   return <Logo {...props} variant="full" />;
 }

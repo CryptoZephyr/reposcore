@@ -2,14 +2,16 @@
 
 /**
  * Re-export wallet functionality from WalletProvider
- * This maintains backward compatibility with existing imports
- * All components that import from this file will now use shared context state
+ * Used by RepoScore to manage the auditor's connection state.
  */
 export { useWallet, WalletProvider } from "./WalletProvider";
 export type { WalletState } from "./WalletProvider";
 
 /**
- * Utility function to format address for display
+ * Utility function to format blockchain addresses for display.
+ * In RepoScore, this is used for displaying the auditor's identity
+ * in the Account Panel and evaluation history.
+ * 
  * @param address - The address to format
  * @param maxLength - Maximum length before truncation (default: 12)
  */

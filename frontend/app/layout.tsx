@@ -3,14 +3,14 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-// Font for body text and UI (Switzer alternative per brand guidelines)
+// Font for body text and UI
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
-// Font for titles (Lineca alternative per brand guidelines)
+// Font for titles
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
@@ -18,8 +18,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "GenLayer Football Market",
-  description: "AI-powered football match predictions on GenLayer blockchain. Create bets, make predictions, and compete for points.",
+  title: "RepoScore | GenLayer GitHub Audits",
+  description: "AI-powered developer trust scores on GenLayer. Evaluate contribution quality, consistency, and technical impact on-chain.",
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -39,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body>
+      <body className="antialiased">
         <Providers>
           {children}
         </Providers>

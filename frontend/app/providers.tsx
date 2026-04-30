@@ -6,14 +6,14 @@ import { Toaster } from "sonner";
 import { WalletProvider } from "@/lib/genlayer/WalletProvider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  // Use useState to ensure QueryClient is only created once per component lifecycle
-  // This prevents the client from being recreated on every render
+  // Configured for RepoScore: 
+  // Ensures scores fetched from the intelligent contract are cached appropriately.
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 2000,
+            staleTime: 5000, // Slightly increased for chain data
             refetchOnWindowFocus: false,
           },
         },

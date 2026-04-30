@@ -13,8 +13,8 @@ interface AddressDisplayProps {
 }
 
 /**
- * Component to display shortened blockchain addresses with tooltip
- * Ported from Vue Address.vue component
+ * Component to display shortened blockchain addresses with a copy-to-clipboard feature.
+ * Used in RepoScore to display auditor or developer wallet addresses.
  */
 export function AddressDisplay({
   address,

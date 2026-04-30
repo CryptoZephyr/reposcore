@@ -1,33 +1,42 @@
 /**
- * TypeScript types for GenLayer Football Betting contract
+ * TypeScript types for RepoScore
+ * Based on the ScoreRecord intelligent contract structure
  */
 
-export interface Bet {
-  id: string;
-  game_date: string;
-  team1: string;
-  team2: string;
-  predicted_winner: string;
-  has_resolved: boolean;
-  real_winner?: string;
-  real_score?: string;
-  resolution_url?: string;
-  owner: string;
+export interface ScoreRecord {
+  username: string;
+  contribution_score: number;
+  consistency: "low" | "medium" | "high";
+  top_languages: string[];
+  community_impact: number;
+  trust_score: number;
+  verdict: string;
 }
 
-export interface LeaderboardEntry {
-  address: string;
-  points: number;
+/**
+ * Used for the Top Developers display
+ */
+export interface TopDeveloperEntry {
+  username: string;
+  trust_score: number;
 }
 
+/**
+ * Standard GenLayer Transaction Receipt
+ */
 export interface TransactionReceipt {
-  status: string;
+  status: "PENDING" | "ACCEPTED" | "REJECTED";
   hash: string;
   blockNumber?: number;
+  output?: any; // Contains the return value of evaluate_user
   [key: string]: any;
 }
 
-export interface BetFilters {
-  resolved?: boolean;
-  owner?: string;
+/**
+ * Filter options for the evaluation table
+ */
+export interface EvaluationFilters {
+  minTrustScore?: number;
+  language?: string;
+  consistency?: "low" | "medium" | "high";
 }
