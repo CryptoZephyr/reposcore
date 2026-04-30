@@ -11,11 +11,10 @@ export default function HomePage() {
 
   // PERFORMANCE FIX: Memoize the search for the audit data so it doesn't run on every typing stroke
   const displayAudit = useMemo(() => {
-    const allAudits = evaluations ? Object.values(evaluations) : [];
     if (activeUsername && evaluations?.[activeUsername]) {
       return evaluations[activeUsername];
     }
-    return allAudits.length > 0 ? allAudits[allAudits.length - 1] : null;
+    return null;
   }, [evaluations, activeUsername]);
 
   // PERFORMANCE FIX: Memoize the gauge offset calculation
