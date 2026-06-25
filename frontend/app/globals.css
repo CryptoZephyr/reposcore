@@ -1,33 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --animate-fade-in-up: fade-in-up var(--duration) var(--easing) forwards;
+  --animate-fade-in-up-scale: fade-in-up-scale var(--duration) var(--easing) forwards;
+}
+
 :root {
-  /* High-contrast Technical Dark Theme */
-  --background: oklch(0.05 0.01 265);
+  /* High-contrast Technical Dark Theme (Electric Teal Base) */
+  --background: oklch(0.07 0.005 240); /* Cold near-black */
   --foreground: oklch(0.98 0 0);
 
-  /* Navy-tinted Technical Cards */
-  --card: oklch(0.12 0.02 265 / 0.8);
+  /* Cool Dark Gray Cards */
+  --card: oklch(0.12 0.008 220);
   --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.12 0.02 265);
+  --popover: oklch(0.12 0.008 220);
   --popover-foreground: oklch(0.98 0 0);
 
-  /* Accents: Neon Purple & Matrix Teal */
-  --primary: oklch(0.65 0.22 300);
-  /* Neon Purple */
+  /* Accents: Electric Teal */
+  --primary: oklch(0.72 0.16 165); /* Electric Teal */
   --primary-foreground: oklch(0.98 0 0);
-  --accent: oklch(0.65 0.22 300);
+  --secondary: oklch(0.15 0.01 220);
+  --secondary-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.15 0.01 220);
+  --muted-foreground: oklch(0.60 0.01 240); /* Cool Gray */
+  
+  --accent: var(--primary);
   --accent-foreground: oklch(0.98 0 0);
 
-  --verified-teal: oklch(0.75 0.15 170);
-  /* Teal for "Verified" labels */
-  --matrix-green: oklch(0.7 0.2 145);
+  /* Semantic Colors */
+  --destructive: oklch(0.6 0.18 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --success: oklch(0.68 0.14 155); /* Matrix green desaturated */
+  --warning: oklch(0.75 0.15 85);
+  
+  /* Legacy token mapping for components */
+  --verified-teal: var(--primary);
+  --matrix-green: var(--success);
 
-  --border: oklch(0.2 0.03 265 / 0.5);
-  --input: oklch(0.15 0.02 265);
-  --ring: oklch(0.65 0.22 300);
+  --border: oklch(0.2 0.01 240 / 0.5);
+  --input: oklch(0.15 0.01 220);
+  --ring: var(--primary);
 
   --radius: 0.75rem;
 }
@@ -36,11 +52,27 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
-  --color-border: var(--border);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-verified-teal: var(--verified-teal);
   --color-matrix-green: var(--matrix-green);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
 }
 
 @layer base {
@@ -48,28 +80,68 @@
     border-color: var(--border);
   }
 
-  body {
-    @apply text-foreground;
-    background-color: var(--background);
-    /* Grid Background Effect from your sample */
-    background-image:
-      radial-gradient(circle at 2px 2px, oklch(1 0 0 / 0.05) 1px, transparent 0);
-    background-size: 32px 32px;
-    font-family: var(--font-body), -apple-system, sans-serif;
+  html {
+    scroll-behavior: smooth;
   }
 
-  /* Monospace for numbers and tech data */
+  body {
+    @apply text-foreground font-sans;
+    background-color: var(--background);
+  }
+
+  /* Noise Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
   .font-mono {
-    font-family: 'JetBrains Mono', monospace !important;
+    font-family: var(--font-mono) !important;
   }
 }
 
 @layer utilities {
 
-  /* The "Glass Widget" look */
+  /* The "Glass Widget" material */
   .glass-widget {
     @apply bg-card border border-white/5 backdrop-blur-md;
-    box-shadow: inset 0 1px 1px 0 oklch(1 0 0 / 0.05);
+    box-shadow: inset 0 1px 1px 0 oklch(1 0 0 / 0.04);
+  }
+
+  /* Brand Card material */
+  .brand-card {
+    @apply bg-card border border-white/5 backdrop-blur-md rounded-2xl;
+    box-shadow: inset 0 1px 1px 0 oklch(1 0 0 / 0.04);
+  }
+  
+  /* Glass Card alias for dialog */
+  .glass-card {
+    @apply bg-card border border-white/5 backdrop-blur-md;
+    box-shadow: inset 0 1px 1px 0 oklch(1 0 0 / 0.04);
+  }
+
+  /* Gradient Purple Pink alias (re-routed to teal for now, will be replaced) */
+  .gradient-purple-pink {
+    @apply bg-primary text-primary-foreground shadow-md;
+    background: linear-gradient(135deg, var(--primary) 0%, oklch(0.65 0.15 190) 100%);
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-in-up-scale {
+    from { opacity: 0; transform: translateY(32px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* Scanning animation */
@@ -99,16 +171,23 @@
   }
 
   .bar-segment-active {
-    background: var(--matrix-green);
-    box-shadow: 0 0 10px var(--matrix-green);
+    background: var(--success);
+    box-shadow: 0 0 10px oklch(0.68 0.14 155 / 0.5); /* using success color with opacity */
   }
 
   .dial-container {
     @apply relative flex items-center justify-center;
-    background: radial-gradient(circle, oklch(0.65 0.22 300 / 0.1) 0%, transparent 70%);
   }
 
-  .text-neon {
-    text-shadow: 0 0 15px oklch(0.65 0.22 300 / 0.5);
+  /* Reduce-motion fallbacks */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }

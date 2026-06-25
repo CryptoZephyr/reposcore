@@ -1,23 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-// Font for body text and UI
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-geist",
   display: "swap",
 });
 
-// Font for titles
-const spaceGrotesk = Space_Grotesk({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://reposcore.genlayer.com"),
   title: "RepoScore | GenLayer GitHub Audits",
   description: "AI-powered developer trust scores on GenLayer. Evaluate contribution quality, consistency, and technical impact on-chain.",
   manifest: "/site.webmanifest",
@@ -26,10 +25,26 @@ export const metadata: Metadata = {
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
   },
+  openGraph: {
+    title: "RepoScore | GenLayer GitHub Audits",
+    description: "AI-powered developer trust scores on GenLayer.",
+    url: "https://reposcore.genlayer.com",
+    siteName: "RepoScore",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "RepoScore - Developer reputation, verified.",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#9B6AF6", // GenLayer brand purple
+  themeColor: "#11b8a5", // Electric Teal
 };
 
 export default function RootLayout({
@@ -38,8 +53,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="antialiased">
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+      <body className="antialiased font-sans">
         <Providers>
           {children}
         </Providers>
